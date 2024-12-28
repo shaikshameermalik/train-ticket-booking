@@ -1,0 +1,22 @@
+### Registration Request
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123"
+}
+
+### Login Request
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Protected Route Request
+GET http://localhost:5000/protected
+Authorization: Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoidGVzdHVzZXIiLCJpYXQiOjE3MzUzNjU1NDgsImV4cCI6MTczNTM2OTE0OH0.xP0dFdrb_dSfL85OVaKPLAWwyKwlEoCZ6EzRhkFOTT8

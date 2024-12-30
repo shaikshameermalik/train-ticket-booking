@@ -23,12 +23,11 @@ const pool = new Pool({
   port: 5432, // PostgreSQL default port
 });
 
-// Serve frontend build (dist folder)
-app.use(express.static(path.join('D:', 'train ticket booking', 'frontend', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
 // Serve all frontend routes to index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join('D:', 'train ticket booking', 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
 
 // User Registration Route

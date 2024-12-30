@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { Pool } = require('pg'); // PostgreSQL library
 const verifyToken = require('./middleware/verifyToken'); // Import verifyToken middleware
+const path = require('path'); // Import path for handling file paths
 
 const app = express();
 
@@ -20,6 +21,14 @@ const pool = new Pool({
   database: 'ticket_booking', // Your PostgreSQL database name
   password: 'malik', // Your PostgreSQL password
   port: 5432, // PostgreSQL default port
+});
+
+// Serve frontend build (dist folder)
+app.use(express.static(path.join('D:', 'train ticket booking', 'frontend', 'dist')));
+
+// Serve all frontend routes to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join('D:', 'train ticket booking', 'frontend', 'dist', 'index.html'));
 });
 
 // User Registration Route
@@ -100,7 +109,6 @@ app.get('/seats', async (req, res) => {
   }
 });
 
-
 app.post('/book-seats', verifyToken, async (req, res) => {
   const { seatIds } = req.body; // Expecting an array of seat IDs
   const userId = req.user.userId; // User ID from JWT
@@ -133,23 +141,14 @@ app.post('/book-seats', verifyToken, async (req, res) => {
   }
 });
 
-
-
 // Root Route
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
-
-
-
-
-
-
-
-
-
+// app.get('/', (req, res) => {
+//   res.send('Server is running!');
+// });
 
 // Start the server
-app.listen(5000, () => {
-  console.log('Server running on port 5000');
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
